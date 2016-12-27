@@ -5,4 +5,7 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the annotation index.")
+    #latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    #context = {'latest_question_list': latest_question_list}
+    context = {'latest_question_list': [1,2,3,4,5,6]}
+    return render(request, 'annotation/index.html', context)
