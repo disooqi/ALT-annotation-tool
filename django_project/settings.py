@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'polls',
+    'annotation',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'django_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  #is a list of filesystem directories to check when loading Django templates; it is a search path
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -105,20 +106,20 @@ STATIC_URL = '/static/'
 # Allow Django from all hosts. This snippet is installed from
 # /var/lib/digitalocean/allow_hosts.py
 
-import os
-import netifaces
-
-# Find out what the IP addresses are at run time
-# This is necessary because otherwise Gunicorn will reject the connections
-def ip_addresses():
-    ip_list = []
-    for interface in netifaces.interfaces():
-        addrs = netifaces.ifaddresses(interface)
-        for x in (netifaces.AF_INET, netifaces.AF_INET6):
-            if x in addrs:
-                ip_list.append(addrs[x][0]['addr'])
-    return ip_list
-
-# Discover our IP address
-ALLOWED_HOSTS = ip_addresses()
+# import os
+# import netifaces
+#
+# # Find out what the IP addresses are at run time
+# # This is necessary because otherwise Gunicorn will reject the connections
+# def ip_addresses():
+#     ip_list = []
+#     for interface in netifaces.interfaces():
+#         addrs = netifaces.ifaddresses(interface)
+#         for x in (netifaces.AF_INET, netifaces.AF_INET6):
+#             if x in addrs:
+#                 ip_list.append(addrs[x][0]['addr'])
+#     return ip_list
+#
+# # Discover our IP address
+# ALLOWED_HOSTS = ip_addresses()
 
