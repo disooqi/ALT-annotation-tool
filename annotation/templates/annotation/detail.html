@@ -1,10 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'annotation/base.html' %}
+{% load split_string_on_spaces %}
+{% block default-data %}
+    <br/>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="coda">CODA</label>
+            <input type="text" class="form-control" id="coda" placeholder="CODA">
+        </div>
+        <div class="form-group">
+            <label for="seg">Segmentation</label>
+            <input type="text" class="form-control" id="seg" placeholder="segmentation">
+        </div>
+        <div class="form-group">
+            <label for="pos">POS</label>
+            <input type="text" class="form-control" id="pos" placeholder="Part-of-speech">
+        </div>
 
-</body>
-</html>
+        <button type="submit" class="btn btn-default">Save</button>
+    </form>
+    <br/>
+{% endblock default-data %}
+{% block content %}
+    <div class="container">
+        <br/><br/><br/>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div id="words" name="words" class="table-responsive">
+                    <table class="table table-condensed table table-hover"
+                           style="direction:rtl;font-size: x-large;">
+                        {% if token and occurrences %}
+                            <h2>{{ token }}</h2>
+
+                            {% for tweet_text, position in occurrences %}
+                                <tr>
+                                    <td>
+                                        {{ tweet_text|add_code_tag:position }}
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            <h3>There is no word with this ID</h3>
+                        {% endif %}
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
