@@ -9,12 +9,13 @@ register = template.Library()
 @register.filter(needs_autoescape=True)
 @stringfilter
 def add_code_tag(value, arg, autoescape=True):
+    print "xxxxxxxxxxxXXXXXXXxxxxxXXXXXxxxx"
     tokens = value.split()
     if autoescape:
         esc = conditional_escape
     else:
         esc = lambda x: x
     #tokens[arg] = '<code>'+tokens[arg]+'</code>'
-    tokens[arg] = "<strong><span class=text-info>%s</span></strong>" % (esc(tokens[arg]))
+    tokens[arg] = "<strong><i><span class=text-danger>%s</span></i></strong>" % (esc(tokens[arg]))
     return mark_safe(' '.join(tokens))
     #return ' '.join(tokens)

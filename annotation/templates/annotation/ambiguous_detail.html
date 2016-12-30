@@ -65,10 +65,10 @@
                         {% if token and occurrences %}
                             <h2>{{ token }}</h2>
 
-                            {% for tweet_text, position in occurrences %}
-                                <tr>
+                            {% for tweet, position, occur_id in occurrences %}
+                                <tr class='clickable-row' data-href="{% url 'annotation:occurrence' occur_id %}">
                                     <td>
-                                        {{ tweet_text|add_code_tag:position }}
+                                        {{ tweet.tweet_text|add_code_tag:position }}
                                     </td>
 
                                 </tr>

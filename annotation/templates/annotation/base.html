@@ -9,7 +9,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-{#    <link rel="icon" href="http://getbootstrap.com/favicon.ico">#}
+    {#    <link rel="icon" href="http://getbootstrap.com/favicon.ico">#}
 
     <title>{% block title %}QCRI/ALT Dialectal Arabic Annotation Project{% endblock title %}</title>
 
@@ -54,10 +54,10 @@
             </button>
             <a class="navbar-brand" href="#">Dialectal Arabic Annotation</a>
         </div>
-    {% block menu %}
+        {% block menu %}
 
-    {% endblock menu %}
-        {% block default-data  %}
+        {% endblock menu %}
+        {% block default-data %}
 
         {% endblock default-data %}
     </div>
@@ -88,11 +88,11 @@
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{% static 'annotation/ie10-viewport-bug-workaround.js' %}"></script>
 <script>
-    jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.document.location = $(this).data("href");
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.document.location = $(this).data("href");
+        });
     });
-});
 </script>
 
 </body>
