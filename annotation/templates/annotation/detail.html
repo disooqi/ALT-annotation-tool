@@ -1,22 +1,56 @@
 {% extends 'annotation/base.html' %}
 {% load split_string_on_spaces %}
+{% block title %}
+     {% if token  %}
+         {{ token }}
+    {% else %}
+         404
+    {% endif %}
+{% endblock title %}
+{% block menu %}
+    <div id="navbar" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="{% url 'annotation:index' 1 %}">Unigrams</a></li>
+            <li><a href="#about">Revision</a></li>
+            <li><a href="#contact">Tagset</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false">Reports <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li><a href="#">Separated link</a></li>
+                    <li><a href="#">One more separated link</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div><!--/.nav-collapse -->
+{% endblock menu %}
 {% block default-data %}
     <br/>
     <form class="form-inline">
         <div class="form-group">
             <label for="coda">CODA</label>
             <input type="text" class="form-control" id="coda" placeholder="CODA">
-        </div>
+        </div>&nbsp;&nbsp;
         <div class="form-group">
             <label for="seg">Segmentation</label>
             <input type="text" class="form-control" id="seg" placeholder="segmentation">
-        </div>
+        </div>&nbsp;&nbsp;
         <div class="form-group">
             <label for="pos">POS</label>
             <input type="text" class="form-control" id="pos" placeholder="Part-of-speech">
+        </div>&nbsp;&nbsp;
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="chb{{ token.id }}"  value="option1"> revisit later
+            </label>
         </div>
-
-        <button type="submit" class="btn btn-default">Save</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="submit" class="btn btn-success">Save for all occurrences</button>
     </form>
     <br/>
 {% endblock default-data %}
