@@ -15,6 +15,6 @@ def add_code_tag(value, arg, autoescape=True):
     else:
         esc = lambda x: x
     #tokens[arg] = '<code>'+tokens[arg]+'</code>'
-    tokens[arg] = "<strong><i><span class=text-danger>%s</span></i></strong>" % (esc(tokens[arg]))
+    tokens[arg] = "<strong><code>%s</code></strong>" % (esc(tokens[arg]))
     return mark_safe(' '.join(tokens))
     #return ' '.join(tokens)
