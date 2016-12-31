@@ -1,13 +1,18 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
 from .models import Token, Tweet, TokenOccurrence
+from .forms import TokenForm
+
+
 # Create your views here.
 
 
 def index(request, page_num):
     p = int(page_num)
-    most_common_tokens = Token.objects.order_by('-freq')[(p*10)-10:p*10]
+    most_common_tokens = Token.objects.order_by('-freq')[(p * 10) - 10:p * 10]
 
     context = {'most_common_tokens': most_common_tokens, 'page': p}
     return render(request, 'annotation/index.html', context)
@@ -15,14 +20,23 @@ def index(request, page_num):
 
 def detail(request, token_id):
     token = get_object_or_404(Token, pk=token_id)
-    #occurrences = token.tweet_set.all()
+    # occurrences = token.tweet_set.all()
     tweet_occurPosition_list = list()
-    #for tweet in occurrences:
+    # for tweet in occurrences:
     token_occur_QuerySet = TokenOccurrence.objects.filter(token=token)
     for occur in token_occur_QuerySet:
         tweet_occurPosition_list.append((occur.tweet.tweet_text, occur.position))
 
-    return render(request, 'annotation/detail.html', {'token': token, 'occurrences':tweet_occurPosition_list})
+    if request.method == 'POST':
+        form = TokenForm(request.POST, instance=token)
+        if form.is_valid():
+            form.save()
+            return render(request, 'annotation/detail.html', {'token': token, 'occurrences': tweet_occurPosition_list})
+    else:
+        form = TokenForm(instance=token)
+
+    return render(request, 'annotation/detail.html',
+                  {'token': token, 'occurrences': tweet_occurPosition_list, 'form': form})
 
 
 def ambiguous(request):
@@ -37,13 +51,37 @@ def ambiguous_detail(request, token_id):
     token_occur_QuerySet = TokenOccurrence.objects.filter(token=token)
     for occur in token_occur_QuerySet:
         tweet_occurPosition_list.append((occur.tweet, occur.position, occur.id))
-    return render(request, 'annotation/ambiguous_detail.html', {'token': token, 'occurrences':tweet_occurPosition_list})
+    return render(request, 'annotation/ambiguous_detail.html',
+                  {'token': token, 'occurrences': tweet_occurPosition_list})
 
 
 def occurrence(request, occur_id):
-    #token = get_object_or_404(Token, pk=token_id)
-    #tweet = get_object_or_404(Tweet, pk=tweet_id)
+    # token = get_object_or_404(Token, pk=token_id)
+    # tweet = get_object_or_404(Tweet, pk=tweet_id)
     occur = get_object_or_404(TokenOccurrence, pk=occur_id)
 
     context = {'occurrence': occur}
-    return render(request, 'annotation/occur_update.html',context)
+    return render(request, 'annotation/occur_update.html', context)
+
+
+def default_annotation(request, token_id):
+    token = get_object_or_404(Token, pk=token_id)
+    # token.default_pos =
+    print request.POST
+    if request.POST[u'coda'].strip():
+        token.default_coda = request.POST[u'coda']
+    if request.POST[u'pos'].strip():
+        token.default_pos = request.POST[u'pos']
+    if request.POST[u'seg'].strip():
+        token.default_segmentation = request.POST[u'seg']
+
+    if request.POST[u'revisit_chb']:
+        token.ambiguous = True
+
+    token.save()
+
+    # Always return an HttpResponseRedirect after successfully dealing
+    # with POST data. This prevents data from being posted twice if a
+    # user hits the Back button.
+
+    return HttpResponseRedirect(reverse('annotation:index', args=(1,)))

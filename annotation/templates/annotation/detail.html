@@ -1,10 +1,10 @@
 {% extends 'annotation/base.html' %}
 {% load split_string_on_spaces %}
 {% block title %}
-     {% if token  %}
-         {{ token }}
+    {% if token %}
+        {{ token }}
     {% else %}
-         404
+        404
     {% endif %}
 {% endblock title %}
 {% block menu %}
@@ -30,29 +30,50 @@
     </div><!--/.nav-collapse -->
 {% endblock menu %}
 {% block default-data %}
+{% if form %}
     <br/>
-    <form class="form-inline">
-        <div class="form-group">
-            <label for="coda">CODA</label>
-            <input type="text" class="form-control" id="coda" placeholder="CODA">
-        </div>&nbsp;&nbsp;
-        <div class="form-group">
-            <label for="seg">Segmentation</label>
-            <input type="text" class="form-control" id="seg" placeholder="segmentation">
-        </div>&nbsp;&nbsp;
-        <div class="form-group">
-            <label for="pos">POS</label>
-            <input type="text" class="form-control" id="pos" placeholder="Part-of-speech">
-        </div>&nbsp;&nbsp;
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" id="chb{{ token.id }}"  value="option1"> revisit later
-            </label>
-        </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-success">Save for all occurrences</button>
-    </form>
-    <br/>
+
+        <form class="form-inline" method="post" action="{% url 'annotation:detail' token.id %}">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="form-group {% if form.default_coda.errors %}has-error{% endif %}">
+
+                <label class="control-label" for="{{ form.coda.id_for_label }}">CODA:</label>
+                {{ form.default_coda }}
+                {% if form.default_coda.errors %}
+                    <span id="helpBlock_coda" class="help-block">{{ form.default_coda.errors }}</span>
+                {% endif %}
+
+            </div>
+            &nbsp;&nbsp;
+            <div class="form-group {% if form.default_segmentation.errors %}has-error{% endif %}">
+                <label class="control-label" for="{{ form.default_segmentation.id_for_label }}">Segmentation:</label>
+                {{ form.default_segmentation }}
+                {% if form.default_segmentation.errors %}
+                    <span id="helpBlock_seg" class="help-block">{{ form.default_segmentation.errors }}</span>
+                {% endif %}
+
+            </div>
+            &nbsp;&nbsp;
+            <div class="form-group {% if form.default_pos.errors %}has-error{% endif %}">
+
+                <label class="control-label" for="{{ form.default_pos.id_for_label }}">POS:</label>
+                {{ form.default_pos }}
+                {% if form.default_pos.errors %}
+                    <span id="helpBlock_pos" class="help-block">{{ form.default_pos.errors }}</span>
+                {% endif %}
+            </div>
+            &nbsp;&nbsp;
+            <div class="checkbox">
+                <label for="{{ form.ambiguous.id_for_label }}">
+                    {{ form.ambiguous }} Ambiguous
+                </label>
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button type="submit" class="btn btn-success" value="default">Save for all occurrences</button>
+        </form>
+        <br/>
+    {% endif %}
 {% endblock default-data %}
 {% block content %}
     <div class="container">
