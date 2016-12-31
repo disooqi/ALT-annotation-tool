@@ -29,31 +29,7 @@
         </ul>
     </div><!--/.nav-collapse -->
 {% endblock menu %}
-{% block default-data %}
-    <br/>
-    <form class="form-inline">
-        <div class="form-group">
-            <label for="coda">CODA</label>
-            <input type="text" class="form-control" id="coda" placeholder="CODA">
-        </div>&nbsp;&nbsp;
-        <div class="form-group">
-            <label for="seg">Segmentation</label>
-            <input type="text" class="form-control" id="seg" placeholder="segmentation">
-        </div>&nbsp;&nbsp;
-        <div class="form-group">
-            <label for="pos">POS</label>
-            <input type="text" class="form-control" id="pos" placeholder="Part-of-speech">
-        </div>&nbsp;&nbsp;
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" id="chb{{ token.id }}"  value="option1"> revisit later
-            </label>
-        </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <button type="submit" class="btn btn-success">Save for all occurrences</button>
-    </form>
-    <br/>
-{% endblock default-data %}
+
 {% block content %}
     <div class="container">
         <br/><br/><br/>
