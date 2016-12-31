@@ -58,10 +58,8 @@ def ambiguous_detail(request, token_id):
 
 def occurrence(request, occur_id):
     occur = get_object_or_404(TokenOccurrence, pk=occur_id)
-    print "xxxXXxXxxxXXX", occur.coda, occur.segmentation, occur.pos
 
     if request.method == 'POST':
-        print occur.id, request.POST
         form = TokenOccurrenceForm(request.POST, instance=occur)
         if form.is_valid():
             form.save()
@@ -71,8 +69,6 @@ def occurrence(request, occur_id):
                 tweet_occurPosition_list.append((occur.tweet, occur.position, occur.id))
             return render(request, 'annotation/ambiguous_detail.html',
                           {'token': occur.token, 'occurrences': tweet_occurPosition_list})
-        else:
-            print request.POST
     else:
         form = TokenOccurrenceForm(instance=occur)
 
