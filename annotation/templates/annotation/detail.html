@@ -30,21 +30,25 @@
     </div><!--/.nav-collapse -->
 {% endblock menu %}
 {% block default-data %}
-{% if form %}
-    <br/>
+    {% if form %}
+        <br/>
 
         <form class="form-inline" method="post" action="{% url 'annotation:detail' token.id %}">
             {% csrf_token %}
             {{ form.non_field_errors }}
+
+
             <div class="form-group {% if form.default_coda.errors %}has-error{% endif %}">
 
-                <label class="control-label" for="{{ form.coda.id_for_label }}">CODA:</label>
+                <label class="control-label" for="{{ form.default_coda.id_for_label }}">CODA:</label>
                 {{ form.default_coda }}
                 {% if form.default_coda.errors %}
                     <span id="helpBlock_coda" class="help-block">{{ form.default_coda.errors }}</span>
                 {% endif %}
 
             </div>
+
+
             &nbsp;&nbsp;
             <div class="form-group {% if form.default_segmentation.errors %}has-error{% endif %}">
                 <label class="control-label" for="{{ form.default_segmentation.id_for_label }}">Segmentation:</label>

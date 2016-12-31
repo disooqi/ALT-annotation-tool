@@ -27,35 +27,57 @@
         <br/><br/><br/><br/>
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <form class="form-horizontal">
+                <form class="form-horizontal" method="post"
+                      action="{% url 'annotation:occurrence' occurrence.id %}">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Tweet</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static" style="font-size: x-large;">{{ occurrence.tweet.tweet_text|add_code_tag:occurrence.position }}</p>
+                            <p class="form-control-static"
+                               style="font-size: x-large;">{{ occurrence.tweet.tweet_text|add_code_tag:occurrence.position }}</p>
                         </div>
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">Word</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">{{ occurrence.token.token_text }}</p>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputEmail3" class="col-sm-2 control-label">CODA</label>
+
+
+                    <div class="form-group {% if form.coda.errors %}has-error{% endif %}">
+                        <label for="{{ form.coda.id_for_label }}" class="col-sm-2 control-label">CODA</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputEmail3" placeholder="coda">
+                            {{ form.coda }}
+                            {# <input type="text" class="form-control" id="inputEmail3" placeholder="coda">#}
+                            {% if form.coda.errors %}
+                                <span id="helpBlock_coda" class="help-block">{{ form.coda.errors }}</span>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Segmentation</label>
+
+
+                    <div class="form-group {% if form.segmentation.errors %}has-error{% endif %}">
+                        <label for="{{ form.segmentation.id_for_label }}"
+                               class="col-sm-2 control-label">Segmentation</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputPassword3" placeholder="Segmentation">
+                            {{ form.segmentation }}
+                            {# <input type="text" class="form-control" id="inputPassword3" placeholder="Segmentation">#}
+                            {% if form.segmentation.errors %}
+                                <span id="helpBlock_coda" class="help-block">{{ form.segmentation.errors }}</span>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="inputPassword3" class="col-sm-2 control-label">Part-of-speech</label>
+                    <div class="form-group {% if form.pos.errors %}has-error{% endif %}">
+                        <label for="{{ form.pos.id_for_label }}"
+                               class="col-sm-2 control-label">Part-of-speech</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inputPassword3" placeholder="POS">
+                            {{ form.pos }}
+                            {#  <input type="text" class="form-control" id="inputPassword3" placeholder="POS">#}
+                            {% if form.pos.errors %}
+                                <span id="helpBlock_coda" class="help-block">{{ form.pos.errors }}</span>
+                            {% endif %}
                         </div>
                     </div>
                     <div class="form-group">

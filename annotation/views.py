@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
 from .models import Token, Tweet, TokenOccurrence
-from .forms import TokenForm
+from .forms import TokenForm, TokenOccurrenceForm
 
 
 # Create your views here.
@@ -49,6 +49,7 @@ def ambiguous_detail(request, token_id):
     token = get_object_or_404(Token, pk=token_id)
     tweet_occurPosition_list = list()
     token_occur_QuerySet = TokenOccurrence.objects.filter(token=token)
+
     for occur in token_occur_QuerySet:
         tweet_occurPosition_list.append((occur.tweet, occur.position, occur.id))
     return render(request, 'annotation/ambiguous_detail.html',
@@ -56,32 +57,24 @@ def ambiguous_detail(request, token_id):
 
 
 def occurrence(request, occur_id):
-    # token = get_object_or_404(Token, pk=token_id)
-    # tweet = get_object_or_404(Tweet, pk=tweet_id)
     occur = get_object_or_404(TokenOccurrence, pk=occur_id)
+    print "xxxXXxXxxxXXX", occur.coda, occur.segmentation, occur.pos
 
-    context = {'occurrence': occur}
+    if request.method == 'POST':
+        print occur.id, request.POST
+        form = TokenOccurrenceForm(request.POST, instance=occur)
+        if form.is_valid():
+            form.save()
+            tweet_occurPosition_list = list()
+            token_occur_QuerySet =TokenOccurrence.objects.filter(token=occur.token)
+            for occur in token_occur_QuerySet:
+                tweet_occurPosition_list.append((occur.tweet, occur.position, occur.id))
+            return render(request, 'annotation/ambiguous_detail.html',
+                          {'token': occur.token, 'occurrences': tweet_occurPosition_list})
+        else:
+            print request.POST
+    else:
+        form = TokenOccurrenceForm(instance=occur)
+
+    context = {'occurrence': occur, 'form': form}
     return render(request, 'annotation/occur_update.html', context)
-
-
-def default_annotation(request, token_id):
-    token = get_object_or_404(Token, pk=token_id)
-    # token.default_pos =
-    print request.POST
-    if request.POST[u'coda'].strip():
-        token.default_coda = request.POST[u'coda']
-    if request.POST[u'pos'].strip():
-        token.default_pos = request.POST[u'pos']
-    if request.POST[u'seg'].strip():
-        token.default_segmentation = request.POST[u'seg']
-
-    if request.POST[u'revisit_chb']:
-        token.ambiguous = True
-
-    token.save()
-
-    # Always return an HttpResponseRedirect after successfully dealing
-    # with POST data. This prevents data from being posted twice if a
-    # user hits the Back button.
-
-    return HttpResponseRedirect(reverse('annotation:index', args=(1,)))

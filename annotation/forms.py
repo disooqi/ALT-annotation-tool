@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 from django import forms
-from .models import Token
+from .models import Token, TokenOccurrence
 
 # class DefaultAnnotationForm(forms.Form):
 #     coda = forms.CharField(label='CODA', max_length=15,
@@ -25,3 +25,8 @@ class TokenForm(forms.ModelForm):
         # widgets = {
         #     'name': Textarea(attrs={'cols': 80, 'rows': 20}),
         # }
+
+class TokenOccurrenceForm(forms.ModelForm):
+    class Meta:
+        model = TokenOccurrence
+        fields = ['coda', 'segmentation', 'pos']
