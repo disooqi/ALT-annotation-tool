@@ -9,7 +9,6 @@ register = template.Library()
 @register.filter(needs_autoescape=True)
 @stringfilter
 def add_code_tag(value, arg, autoescape=True):
-    print "xxxxxxxxxxxXXXXXXXxxxxxXXXXXxxxx"
     tokens = value.split()
     if autoescape:
         esc = conditional_escape
