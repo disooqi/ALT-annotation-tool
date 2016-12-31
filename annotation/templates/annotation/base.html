@@ -54,9 +54,28 @@
             </button>
             <a class="navbar-brand" href="#">Dialectal Arabic Annotation</a>
         </div>
-        {% block menu %}
 
-        {% endblock menu %}
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    {% block unigrams %}<li><a href="{% url 'annotation:index' 1 %}">كل الكلمات</a></li>{% endblock unigrams %}
+                    {% block revision %}<li><a href="{% url 'annotation:ambiguous' %}"> الكلمات الملتبسة</a></li>{% endblock revision %}
+                    {% block tagset %}<li><a href="#">أقسام الكلام</a></li>{% endblock tagset %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">أدوات <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">حفظ الملف الموسوم</a></li>
+                            <li><a href="#">وسم ملف جديد</a></li>
+                            <li><a href="#">حذف كلمات</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">تقارير</li>
+                            <li><a href="#">عدد الكلمات الموسومة</a></li>
+                            <li><a href="#">عدد الكلمات الملتبسة</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+
         {% block default-data %}
 
         {% endblock default-data %}

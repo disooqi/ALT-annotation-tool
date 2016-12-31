@@ -7,51 +7,26 @@
         404
     {% endif %}
 {% endblock title %}
-{% block menu %}
-    <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-            <li><a href="{% url 'annotation:index' 1 %}">Unigrams</a></li>
-            <li><a href="{% url 'annotation:ambiguous' %}">Revision</a></li>
-            <li><a href="#">Tagset</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">Reports <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div><!--/.nav-collapse -->
-{% endblock menu %}
 {% block default-data %}
     {% if form %}
         <br/>
-
-        <form class="form-inline" method="post" action="{% url 'annotation:detail' token.id %}">
+        <form class="form-inline" method="post" action="{% url 'annotation:detail' token.id %}" style="direction: rtl">
             {% csrf_token %}
             {{ form.non_field_errors }}
 
 
             <div class="form-group {% if form.default_coda.errors %}has-error{% endif %}">
 
-                <label class="control-label" for="{{ form.default_coda.id_for_label }}">CODA:</label>
+                <label class="control-label" for="{{ form.default_coda.id_for_label }}">الكتابة الاصطلاحية:</label>
                 {{ form.default_coda }}
                 {% if form.default_coda.errors %}
                     <span id="helpBlock_coda" class="help-block">{{ form.default_coda.errors }}</span>
                 {% endif %}
 
             </div>
-
-
             &nbsp;&nbsp;
             <div class="form-group {% if form.default_segmentation.errors %}has-error{% endif %}">
-                <label class="control-label" for="{{ form.default_segmentation.id_for_label }}">Segmentation:</label>
+                <label class="control-label" for="{{ form.default_segmentation.id_for_label }}">التقطيع:</label>
                 {{ form.default_segmentation }}
                 {% if form.default_segmentation.errors %}
                     <span id="helpBlock_seg" class="help-block">{{ form.default_segmentation.errors }}</span>
@@ -61,7 +36,7 @@
             &nbsp;&nbsp;
             <div class="form-group {% if form.default_pos.errors %}has-error{% endif %}">
 
-                <label class="control-label" for="{{ form.default_pos.id_for_label }}">POS:</label>
+                <label class="control-label" for="{{ form.default_pos.id_for_label }}">قسم الكلام:</label>
                 {{ form.default_pos }}
                 {% if form.default_pos.errors %}
                     <span id="helpBlock_pos" class="help-block">{{ form.default_pos.errors }}</span>
@@ -70,26 +45,33 @@
             &nbsp;&nbsp;
             <div class="checkbox">
                 <label for="{{ form.ambiguous.id_for_label }}">
-                    {{ form.ambiguous }} Ambiguous
+                    {{ form.ambiguous }} ملتبس
                 </label>
             </div>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <button type="submit" class="btn btn-success" value="default">Save for all occurrences</button>
+            <button type="submit" class="btn btn-success" value="default">أحفظ كوسم إفتراضي</button>
         </form>
         <br/>
+    {% else %}
+        <div class="alert alert-success alert-dismissible" role="alert" style="direction: rtl;font-size: x-large;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong>تم بنجاح!</strong> لقد تم حفظ الوسوم بنجاح.
+        </div>
     {% endif %}
 {% endblock default-data %}
 {% block content %}
     <div class="container">
-        <br/><br/><br/>
-        <div class="row">
-            <div class="col-md-12 ">
-                <div id="words" name="words" class="table-responsive">
-                    <table class="table table-condensed table table-hover"
-                           style="direction:rtl;font-size: x-large;">
-                        {% if token and occurrences %}
-                            <h2>{{ token }}</h2>
-
+        {% if token and occurrences %}
+            <br/><br/><br/>
+            {#            <div class="row" style="direction: rtl">#}
+            {#                <div class="col-md-2 col-md-offset-10"><h2>{{ token }}</h2></div>#}
+            {#            </div>#}
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div id="words" name="words" class="table-responsive">
+                        <table class="table table-condensed table table-striped"
+                               style="direction:rtl;font-size: x-large;">
                             {% for tweet_text, position in occurrences %}
                                 <tr>
                                     <td>
@@ -98,13 +80,14 @@
 
                                 </tr>
                             {% endfor %}
-                        {% else %}
-                            <h3>There is no word with this ID</h3>
-                        {% endif %}
 
-                    </table>
+
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <h3>There is no word with this ID</h3>
+        {% endif %}
     </div>
 {% endblock content %}

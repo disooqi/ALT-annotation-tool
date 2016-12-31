@@ -28,27 +28,27 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <form class="form-horizontal" method="post"
-                      action="{% url 'annotation:occurrence' occurrence.id %}">
+                      action="{% url 'annotation:occurrence' occurrence.id %}" style="direction: rtl;">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Tweet</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-2 col-md-push-10 control-label">التغريدة</label>
+                        <div class="col-sm-10 col-md-pull-2">
                             <p class="form-control-static"
                                style="font-size: x-large;">{{ occurrence.tweet.tweet_text|add_code_tag:occurrence.position }}</p>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Word</label>
-                        <div class="col-sm-10">
+                        <label class="col-sm-2 col-md-push-10 control-label">الكلمة</label>
+                        <div class="col-sm-10 col-md-pull-2">
                             <p class="form-control-static">{{ occurrence.token.token_text }}</p>
                         </div>
                     </div>
 
 
                     <div class="form-group {% if form.coda.errors %}has-error{% endif %}">
-                        <label for="{{ form.coda.id_for_label }}" class="col-sm-2 control-label">CODA</label>
-                        <div class="col-sm-10">
+                        <label for="{{ form.coda.id_for_label }}" class="col-sm-2 col-md-push-10 control-label">الكتابة الاصطلاحية</label>
+                        <div class="col-sm-10 col-md-pull-2">
                             {{ form.coda }}
                             {# <input type="text" class="form-control" id="inputEmail3" placeholder="coda">#}
                             {% if form.coda.errors %}
@@ -60,8 +60,8 @@
 
                     <div class="form-group {% if form.segmentation.errors %}has-error{% endif %}">
                         <label for="{{ form.segmentation.id_for_label }}"
-                               class="col-sm-2 control-label">Segmentation</label>
-                        <div class="col-sm-10">
+                               class="col-sm-2 col-md-push-10 control-label">التقطيع</label>
+                        <div class="col-sm-10 col-md-pull-2">
                             {{ form.segmentation }}
                             {# <input type="text" class="form-control" id="inputPassword3" placeholder="Segmentation">#}
                             {% if form.segmentation.errors %}
@@ -71,8 +71,8 @@
                     </div>
                     <div class="form-group {% if form.pos.errors %}has-error{% endif %}">
                         <label for="{{ form.pos.id_for_label }}"
-                               class="col-sm-2 control-label">Part-of-speech</label>
-                        <div class="col-sm-10">
+                               class="col-sm-2 col-md-push-10 control-label">قسم الكلام</label>
+                        <div class="col-sm-10 col-md-pull-2">
                             {{ form.pos }}
                             {#  <input type="text" class="form-control" id="inputPassword3" placeholder="POS">#}
                             {% if form.pos.errors %}
@@ -82,7 +82,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-default">Save</button>
+                            <button type="submit" class="btn btn-success">حفظ</button>
                         </div>
                     </div>
                 </form>

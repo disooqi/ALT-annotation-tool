@@ -68,7 +68,7 @@ def occurrence(request, occur_id):
             for occur in token_occur_QuerySet:
                 tweet_occurPosition_list.append((occur.tweet, occur.position, occur.id))
             return render(request, 'annotation/ambiguous_detail.html',
-                          {'token': occur.token, 'occurrences': tweet_occurPosition_list})
+                          {'token': occur.token, 'occurrences': tweet_occurPosition_list, 'saved': True})
     else:
         form = TokenOccurrenceForm(instance=occur)
 

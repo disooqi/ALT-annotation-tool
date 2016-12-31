@@ -1,61 +1,44 @@
 {% extends 'annotation/base.html' %}
 {% load split_string_on_spaces %}
 {% block title %}
-     {% if token  %}
-         {{ token }}
+    {% if token %}
+        {{ token }}
     {% else %}
-         404
+        404
     {% endif %}
 {% endblock title %}
-{% block menu %}
-    <div id="navbar" class="collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-            <li><a href="{% url 'annotation:index' 1 %}">Unigrams</a></li>
-            <li><a href="{% url 'annotation:ambiguous' %}">Revision</a></li>
-            <li><a href="#contact">Tagset</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                   aria-expanded="false">Reports <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div><!--/.nav-collapse -->
-{% endblock menu %}
-
 {% block content %}
     <div class="container">
-        <br/>
-        <div class="row">
-            <div class="col-md-12 ">
-                <div id="words" name="words" class="table-responsive">
-                    <table class="table table-condensed table table-hover"
-                           style="direction:rtl;font-size: x-large;">
-                        {% if token and occurrences %}
-                            <h2>{{ token }}</h2>
-
+    {% if saved %}
+        <div class="alert alert-success alert-dismissible" role="alert" style="direction: rtl;font-size: x-large;">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+            <strong>تم بنجاح!</strong> لقد تم حفظ الوسوم بنجاح.
+        </div>
+    {% endif %}
+        {% if token and occurrences %}
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div id="words" name="words" class="table-responsive">
+                        <table class="table table-condensed table table-hover table-striped"
+                               style="direction:rtl;font-size: x-large;">
                             {% for tweet, position, occur_id in occurrences %}
                                 <tr class='clickable-row' data-href="{% url 'annotation:occurrence' occur_id %}">
+                                    <td>{{ forloop.counter }}</td>
                                     <td>
                                         {{ tweet.tweet_text|add_code_tag:position }}
                                     </td>
 
                                 </tr>
                             {% endfor %}
-                        {% else %}
-                            <h3>There is no word with this ID</h3>
-                        {% endif %}
 
-                    </table>
+
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <h3>There is no word with this ID</h3>
+        {% endif %}
     </div>
 {% endblock content %}
