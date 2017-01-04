@@ -2114,7 +2114,7 @@
             _onLeftKeyed: function onLeftKeyed() {
                 if (this.dir === "rtl" && this.input.isCursorAtEnd()) {
                     this.autocomplete(this.menu.getTopSelectable());
-                    //alert(this.input.getInputValue());
+                    //alert(this.firs);
 
                 }
             },
@@ -2238,8 +2238,8 @@
                     var lastPlusLoc = query.lastIndexOf("+");
                     if (lastPlusLoc != -1) {
                         //alert(query.substring(0, lastPlusLoc + 1));
-                        this.input.setQuery(query.substring(0, lastPlusLoc + 1)+data.val);
-                    }else {
+                        this.input.setQuery(query.substring(0, lastPlusLoc + 1) + data.val);
+                    } else {
                         this.input.setQuery(data.val);
                     }
 
@@ -2251,6 +2251,7 @@
             moveCursor: function moveCursor(delta) {
                 var query, $candidate, data, payload, cancelMove;
                 query = this.input.getQuery();
+                //alert(query);
                 $candidate = this.menu.selectableRelativeToCursor(delta);
                 data = this.menu.getSelectableData($candidate);
                 payload = data ? data.obj : null;
@@ -2258,7 +2259,13 @@
                 if (!cancelMove && !this.eventBus.before("cursorchange", payload)) {
                     this.menu.setCursor($candidate);
                     if (data) {
-                        this.input.setInputValue(data.val);
+                        var lastPlusLoc = query.lastIndexOf("+");
+                        if (lastPlusLoc != -1) {
+                            //alert(query.substring(0, lastPlusLoc + 1));
+                            this.input.setInputValue(query.substring(0, lastPlusLoc + 1) + data.val);
+                        } else {
+                            this.input.setInputValue(data.val);
+                        }
                     } else {
                         this.input.resetInputValue();
                         this._updateHint();
@@ -2335,6 +2342,7 @@
                     typeahead = new Typeahead({
                         input: input,
                         menu: menu,
+                        //firstPart:"",
                         eventBus: eventBus,
                         minLength: o.minLength
                     }, www);
