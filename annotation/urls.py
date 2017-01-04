@@ -9,4 +9,6 @@ urlpatterns = [
     url(r'^ambiguous-detail/(?P<token_id>[0-9]+)/$', views.ambiguous_detail, name='ambiguous-detail'),
     url(r'^occurrence/(?P<occur_id>[0-9]+)/$', views.occurrence,
         name='occurrence'),
+    url(r'^tagset/$', views.tagset, name='tagset'),
+    url(r'^suggestions/(?P<text_value>.+)/$', views.autocomplete_pos, name='suggestions'),
 ]

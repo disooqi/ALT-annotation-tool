@@ -1,6 +1,8 @@
 # -*- coding:utf-8 -*-
 from django import forms
+from django.forms import TextInput
 from .models import Token, TokenOccurrence
+
 
 # class DefaultAnnotationForm(forms.Form):
 #     coda = forms.CharField(label='CODA', max_length=15,
@@ -22,9 +24,12 @@ class TokenForm(forms.ModelForm):
     class Meta:
         model = Token
         fields = ['default_coda', 'default_segmentation', 'default_pos', 'ambiguous']
-        # widgets = {
-        #     'name': Textarea(attrs={'cols': 80, 'rows': 20}),
-        # }
+        widgets = {
+            'default_pos': TextInput(
+                attrs={'autocomplete': 'off', 'spellcheck': 'false', 'id': "suggestionsTB",
+                       'class': "typeahead form-control", 'dir': 'rtl'}),
+        }
+
 
 class TokenOccurrenceForm(forms.ModelForm):
     class Meta:

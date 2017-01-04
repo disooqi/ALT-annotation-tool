@@ -10,10 +10,9 @@
 {% block default-data %}
     {% if form %}
         <br/>
-        <form class="form-inline" method="post" action="{% url 'annotation:detail' token.id %}" style="direction: rtl">
+        <form class="form-inline" method="post" action="{% url 'annotation:detail' token.id %}" style="direction: rtl;">
             {% csrf_token %}
             {{ form.non_field_errors }}
-
 
             <div class="form-group {% if form.default_coda.errors %}has-error{% endif %}">
 
@@ -34,10 +33,12 @@
 
             </div>
             &nbsp;&nbsp;
-            <div class="form-group {% if form.default_pos.errors %}has-error{% endif %}">
+            <div id="rtl-support" class="form-group {% if form.default_pos.errors %}has-error{% endif %}">
 
                 <label class="control-label" for="{{ form.default_pos.id_for_label }}">قسم الكلام:</label>
                 {{ form.default_pos }}
+                {#                <input autocomplete="off" class="typeahead" id="suggestionsTB" maxlength="15" name="default_pos"#}
+                {#                       spellcheck="false" type="text"/>#}
                 {% if form.default_pos.errors %}
                     <span id="helpBlock_pos" class="help-block">{{ form.default_pos.errors }}</span>
                 {% endif %}
@@ -64,9 +65,6 @@
     <div class="container">
         {% if token and occurrences %}
             <br/><br/><br/>
-            {#            <div class="row" style="direction: rtl">#}
-            {#                <div class="col-md-2 col-md-offset-10"><h2>{{ token }}</h2></div>#}
-            {#            </div>#}
             <div class="row">
                 <div class="col-md-12 ">
                     <div id="words" name="words" class="table-responsive">

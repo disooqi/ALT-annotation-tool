@@ -28,6 +28,7 @@
     <!-- Custom styles for this template -->
     <link href="{% static 'annotation/sticky-footer-navbar.css' %}" rel="stylesheet">
 
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="{% static 'annotation/ie8-responsive-file-warning.js' %}"></script><![endif]-->
     <script src="{% static 'annotation/ie-emulation-modes-warning.js' %}"></script>
@@ -37,6 +38,9 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="{% static 'annotation/typeahead.css' %}">
+
+
 </head>
 
 <body>
@@ -55,26 +59,35 @@
             <a class="navbar-brand" href="#">Dialectal Arabic Annotation</a>
         </div>
 
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    {% block unigrams %}<li><a href="{% url 'annotation:index' 1 %}">كل الكلمات</a></li>{% endblock unigrams %}
-                    {% block revision %}<li><a href="{% url 'annotation:ambiguous' %}"> الكلمات الملتبسة</a></li>{% endblock revision %}
-                    {% block tagset %}<li><a href="#">أقسام الكلام</a></li>{% endblock tagset %}
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">أدوات <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">حفظ الملف الموسوم</a></li>
-                            <li><a href="#">وسم ملف جديد</a></li>
-                            <li><a href="#">حذف كلمات</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">تقارير</li>
-                            <li><a href="#">عدد الكلمات الموسومة</a></li>
-                            <li><a href="#">عدد الكلمات الملتبسة</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div><!--/.nav-collapse -->
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                {% block unigrams %}
+                    <li><a href="{% url 'annotation:index' 1 %}">كل الكلمات</a></li>{% endblock unigrams %}
+                {% block revision %}
+                    <li><a href="{% url 'annotation:ambiguous' %}"> الكلمات الملتبسة</a></li>{% endblock revision %}
+                {% block tagset %}
+                    <li><a href="{% url 'annotation:tagset' %}">أقسام الكلام</a></li>{% endblock tagset %}
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">أدوات <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">حفظ الملف الموسوم</a></li>
+                        <li><a href="#">وسم ملف جديد</a></li>
+                        <li><a href="#">حذف كلمات</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="dropdown-header">تقارير</li>
+                        <li><a href="#">عدد الكلمات الموسومة</a></li>
+                        <li><a href="#">عدد الكلمات الملتبسة</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group" style="direction: rtl;">
+                    <input type="text" class="form-control" placeholder="الكلمة المراد البحث عنها">
+                </div>
+                <button type="submit" class="btn btn-default">بحث</button>
+            </form>
+        </div><!--/.nav-collapse -->
 
         {% block default-data %}
 
@@ -98,7 +111,7 @@
 <!-- Placed at the end of the document so the pages load faster -->
 {#    <script src="{% static 'annotation/jquery.js' %}"></script>#}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="{% static 'annotation/jquery.min.js' %}"><\/script>')</script>
+{#<script>window.jQuery || document.write('<script src="{% static 'annotation/jquery.min.js' %}"><\/script>')</script>#}
 
 {#    <script src="{% static 'annotation/bootstrap.js' %}"></script>#}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
@@ -106,13 +119,32 @@
         crossorigin="anonymous"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{% static 'annotation/ie10-viewport-bug-workaround.js' %}"></script>
-<script>
-    jQuery(document).ready(function ($) {
-        $(".clickable-row").click(function () {
-            window.location = $(this).data("href");
-        });
-    });
-</script>
+<script src="{% static 'annotation/typeahead.bundle.js' %}"></script>
+    <script type="text/javascript">
+        var arabicPhrases = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
 
+            remote: {
+                url: '{% url "annotation:suggestions" "QUERY"  %}',
+                wildcard: 'QUERY'
+            }
+        });
+
+        $('#rtl-support .typeahead').typeahead({
+                    hint: false
+                },
+                {
+                    name: 'arabic-phrases',
+                    source: arabicPhrases
+                });
+    </script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+    </script>
 </body>
 </html>
