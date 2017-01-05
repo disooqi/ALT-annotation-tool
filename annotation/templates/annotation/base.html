@@ -81,11 +81,13 @@
                     </ul>
                 </li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" method="post" action="{% url 'annotation:search-result' %}">
+                {% csrf_token %}
+            {{ form.non_field_errors }}
                 <div class="form-group" style="direction: rtl;">
-                    <input type="text" class="form-control" placeholder="الكلمة المراد البحث عنها">
+                    <input type="text" id="search-input" name="query"  class="form-control" placeholder="الكلمة المراد البحث عنها">
                 </div>
-                <button type="submit" class="btn btn-default">بحث</button>
+                <button type="submit" class="btn btn-default" onclick="return empty();">بحث</button>
             </form>
         </div><!--/.nav-collapse -->
 
@@ -101,7 +103,8 @@
 {% endblock content %}
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">Copyright &copy;2017 All rights reserved to Qatar Computing Research Institute and HBKU</p>
+        <p class="text-muted">Copyright &copy;2017 All rights reserved to Qatar Computing Research Institute and
+            HBKU</p>
         <p class="text-muted">Designed by ALT - Arabic NLP Team/QCRI</p>
     </div>
 </footer>
@@ -121,31 +124,41 @@
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{% static 'annotation/ie10-viewport-bug-workaround.js' %}"></script>
 <script src="{% static 'annotation/typeahead.bundle.js' %}"></script>
-    <script type="text/javascript">
-        var arabicPhrases = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.whitespace,
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
+<script type="text/javascript">
+    var arabicPhrases = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
 
-            remote: {
-                url: '{% url "annotation:suggestions" "QUERY"  %}',
-                wildcard: 'QUERY'
-            }
-        });
+        remote: {
+            url: '{% url "annotation:suggestions" "QUERY"  %}',
+            wildcard: 'QUERY'
+        }
+    });
 
-        $('#rtl-support .typeahead').typeahead({
-                    hint: false
-                },
-                {
-                    name: 'arabic-phrases',
-                    source: arabicPhrases
-                });
-    </script>
-    <script>
-        jQuery(document).ready(function ($) {
-            $(".clickable-row").click(function () {
-                window.location = $(this).data("href");
+    $('#rtl-support .typeahead').typeahead({
+                hint: false
+            },
+            {
+                name: 'arabic-phrases',
+                source: arabicPhrases
             });
+</script>
+<script>
+    jQuery(document).ready(function ($) {
+        $(".clickable-row").click(function () {
+            window.location = $(this).data("href");
         });
-    </script>
+    });
+</script>
+<script>
+    function empty() {
+        var x;
+        x = document.getElementById("search-input").value;
+        if (x == "") {
+            alert("أدخل كلمة للبحث");
+            return false;
+        };
+    }
+</script>
 </body>
 </html>

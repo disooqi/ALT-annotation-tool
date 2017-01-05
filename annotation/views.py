@@ -102,7 +102,14 @@ def autocomplete_pos(request, text_value):
     return render(request, 'annotation/suggestions.html', {'suggestions':json.dumps(suggestions)})
 
 
-
+def search(request):
+    if request.method == 'POST':
+        querySet = Token.objects.filter(token_text__contains=request.POST['query'])
+        print len(querySet)
+        return render(request, 'annotation/search_result.html',
+                          {'result': querySet})
+    else:
+        pass
 
 def tagset(request):
     return render(request, 'annotation/tagset.html')

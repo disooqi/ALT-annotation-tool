@@ -11,4 +11,5 @@ urlpatterns = [
         name='occurrence'),
     url(r'^tagset/$', views.tagset, name='tagset'),
     url(r'^suggestions/(?P<text_value>.+)/$', views.autocomplete_pos, name='suggestions'),
+    url(r'^search/$', views.search, name='search-result'),
 ]
