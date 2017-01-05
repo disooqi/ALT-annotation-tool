@@ -1163,12 +1163,12 @@
                     opacity: "1"
                 },
                 input: {
-                    position: "relative",
+                    //position: "relative",
                     verticalAlign: "top",
                     backgroundColor: "transparent"
                 },
                 inputWithNoHint: {
-                    position: "relative",
+                    //position: "relative",
                     verticalAlign: "top"
                 },
                 menu: {

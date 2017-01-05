@@ -1,10 +1,286 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'annotation/base.html' %}
+{% block tagset %}
+    <li class="active"><a href="#">أقسام الكلام</a></li>{% endblock tagset %}
+{% block content %}
+    <div class="container">
+        <div class="page-header text-center" style=" direction: rtl;">
+            <h2>أقسام الكلام المسموح إستخدامها</h2>
+        </div>
+         <p class="lead arabic" dir="rtl"> تحوي القائمة التالية الاوسمة المسموح إستخدامها كمدخل لأقسام الكلام. ومن الممكن تكوين أي توليفة بين هذه الاوسمة لترميز
+         المدخل الواحد. كما ان صندوق المدخل ﻷقسام الكلام يساعدك على إختيار الوسم مع الشروع بالكتابة.</p>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
 
-</body>
-</html>
+
+                <div class="panel-group" id="accordion" role="tablist" dir="rtl" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="heading1">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapse1" aria-expanded="false" aria-controls="collapse1">اسم</a>
+                            </h4>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="heading1">
+                            <div class="panel-body">
+                                <p class="arabic" style="font-size: larger"><span class="text-danger">مثال:</span>ناس
+                                </p>
+                                <p class="arabic" style="font-size: larger">
+                                    و ساعات نكتب تويتة نكون قاصدين بيها
+                                    <strong>
+                                        <code>ناس</code>
+                                    </strong>
+                                    و ناس تانية خالص تاخد الكلام عليها !
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="heading2">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapse2"
+                                   aria-expanded="true" aria-controls="collapse2">فعل</a>
+                            </h4>
+                        </div>
+                        <div id="collapse2" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="heading2">
+                            <div class="panel-body">
+
+
+                                <p class="arabic" style="font-size: larger"><span class="text-danger">مثال:</span> خليك
+                                </p>
+                                <p class="arabic" style="font-size: larger">
+                                    ممكن تكون ظروف الدنيا معنداك بس
+                                    <strong>
+                                        <code>خليك</code>
+                                    </strong>
+                                    واثق ان ربنا معاك
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading" role="tab" id="heading3">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3"
+                                   aria-expanded="true" aria-controls="collapse3">صفة</a>
+                            </h4>
+                        </div>
+                        <div id="collapse3" class="panel-collapse collapse in" role="tabpanel"
+                             aria-labelledby="heading3">
+                            <div class="panel-body">
+
+                                <p class="arabic" style="font-size: larger"><span class="text-danger">مثال:</span> مهمة
+                                </p>
+                                <p class="arabic" style="font-size: larger"> مفيش احلي من انك تلاقي حد كل يوم عمال
+                                    يثبتلك انك حاجة <strong><code>مهمة</code></strong> بالنسبة ليه !</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">ضمير</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">عطف</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">تعريف</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">جر</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">أداة</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">عدد</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">أجنبي</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">اختصار</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">لاحق</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">ترقيم</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">مرجع</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">وسم</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">شعور</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title" style="font-size: xx-large;">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">رابط</a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse " role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    </div>
+{% endblock content %}

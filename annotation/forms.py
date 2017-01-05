@@ -35,3 +35,13 @@ class TokenOccurrenceForm(forms.ModelForm):
     class Meta:
         model = TokenOccurrence
         fields = ['coda', 'segmentation', 'pos']
+        widgets = {
+            'coda': TextInput(
+                attrs={'class': "form-control", 'dir': 'rtl'}),
+            'segmentation': TextInput(
+                attrs={'class': "form-control", 'dir': 'rtl'}),
+            'pos': TextInput(
+                attrs={'autocomplete': 'off', 'spellcheck': 'false', 'id': "suggestionsTB",
+                       'class': "typeahead form-control", 'dir': 'rtl'}),
+
+        }
