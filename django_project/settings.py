@@ -12,7 +12,11 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from scrapinghub import ScrapinghubClient
 
+
+apikey = '71e0b3b390894fd2aaa5fdce16415059'
+client = ScrapinghubClient(apikey)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -39,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'polls',
     'annotation',
+    'gornany',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -113,19 +118,19 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # /var/lib/digitalocean/allow_hosts.py
 
 import os
-import netifaces
-
-# Find out what the IP addresses are at run time
-# This is necessary because otherwise Gunicorn will reject the connections
-def ip_addresses():
-    ip_list = []
-    for interface in netifaces.interfaces():
-        addrs = netifaces.ifaddresses(interface)
-        for x in (netifaces.AF_INET, netifaces.AF_INET6):
-            if x in addrs:
-                ip_list.append(addrs[x][0]['addr'])
-    return ip_list
-
-# Discover our IP address
-ALLOWED_HOSTS = ip_addresses()
+# import netifaces
+#
+# # Find out what the IP addresses are at run time
+# # This is necessary because otherwise Gunicorn will reject the connections
+# def ip_addresses():
+#     ip_list = []
+#     for interface in netifaces.interfaces():
+#         addrs = netifaces.ifaddresses(interface)
+#         for x in (netifaces.AF_INET, netifaces.AF_INET6):
+#             if x in addrs:
+#                 ip_list.append(addrs[x][0]['addr'])
+#     return ip_list
+#
+# # Discover our IP address
+# ALLOWED_HOSTS = ip_addresses()
 

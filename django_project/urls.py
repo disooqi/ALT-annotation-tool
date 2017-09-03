@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^annotate/', include('annotation.urls', namespace="annotation")),
+    url(r'^gornany/', include('gornany.urls', namespace="gornany")),
 ]
 
